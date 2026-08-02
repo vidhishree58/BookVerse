@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaSpinner } from "react-icons/fa";
+import DashboardNavbar from "../components/DashboardNavbar";
 import API from "../Api";
 
 const AddBook = () => {
@@ -67,7 +68,7 @@ const AddBook = () => {
         },
       });
 
-      alert(response.data.message);
+      alert(response.data.message || "Book added successfully!");
       navigate("/dashboard");
     } catch (error) {
       alert(error.response?.data?.message || "Something went wrong");
@@ -77,147 +78,169 @@ const AddBook = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#120812] flex justify-center items-center py-10 px-5">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-[#1b0d1b] border border-[#7808be] rounded-2xl w-full max-w-3xl p-8 shadow-2xl space-y-5"
-      >
-        <h1 className="text-3xl font-bold text-center text-white">
-          Add New Book
-        </h1>
+    <div className="min-h-screen bg-[#120812] relative">
+      <DashboardNavbar />
 
-        <input
-          type="text"
-          name="title"
-          placeholder="Book Title"
-          value={book.title}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        />
+      {/* Full Screen Purple Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col justify-center items-center gap-4 text-white">
+          <FaSpinner className="animate-spin text-5xl text-[#9427d6]" />
+          <div className="text-center space-y-1">
+            <p className="text-2xl font-bold text-white">Uploading Book Cover...</p>
+            <p className="text-sm text-gray-300">
+              Large images might take a few seconds. Please wait!
+            </p>
+          </div>
+        </div>
+      )}
 
-        <input
-          type="text"
-          name="author"
-          placeholder="Author"
-          value={book.author}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        />
-
-        {/* Expanded Genres List */}
-        <select
-          name="genre"
-          value={book.genre}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+      <div className="flex justify-center items-center py-10 px-5">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-[#1b0d1b] border border-[#7808be] rounded-2xl w-full max-w-3xl p-8 shadow-2xl space-y-5"
         >
-          <option value="">Select Genre</option>
-          <option>Fantasy</option>
-          <option>Romance</option>
-          <option>Thriller</option>
-          <option>Mystery</option>
-          <option>Horror</option>
-          <option>Science Fiction</option>
-          <option>Historical Fiction</option>
-          <option>Adventure</option>
-          <option>Crime</option>
-          <option>Supernatural</option>
-          <option>Self Help</option>
-          <option>Biography & Memoir</option>
-          <option>Philosophy</option>
-          <option>Psychology</option>
-          <option>Business & Economics</option>
-          <option>Poetry</option>
-          <option>Classic</option>
-          <option>Young Adult</option>
-        </select>
+          <h1 className="text-3xl font-bold text-center text-white">
+            Add New Book
+          </h1>
 
-        {/* Expanded Moods List */}
-        <select
-          name="mood"
-          value={book.mood}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        >
-          <option value="">Select Mood</option>
-          <option>Happy & Uplifting</option>
-          <option>Sad & Tearjerker</option>
-          <option>Motivational & Inspiring</option>
-          <option>Dark & Gritty</option>
-          <option>Emotional & Heartfelt</option>
-          <option>Relaxing & Cozy</option>
-          <option>Funny & Humorous</option>
-          <option>Suspenseful & Thrilling</option>
-          <option>Mysterious & Intrigued</option>
-          <option>Adventurous & Exciting</option>
-          <option>Romantic & Dreamy</option>
-          <option>Nostalgic</option>
-        </select>
-
-        <textarea
-          name="description"
-          placeholder="Book Description"
-          rows="5"
-          value={book.description}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        />
-
-        <input
-          type="number"
-          min="1"
-          max="5"
-          name="rating"
-          placeholder="Your Rating (1-5)"
-          value={book.rating}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        />
-
-        <textarea
-          name="comment"
-          placeholder="Your Review (Optional)"
-          rows="3"
-          value={book.comment}
-          onChange={handleChange}
-          className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
-        />
-
-        <div className="relative flex items-center justify-between w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white">
           <input
-            id="book-cover-input"
-            type="file"
-            placeholder="Optional"
-            accept="image/*"
-            onChange={handleImage}
-            className="w-full text-sm text-gray-300 file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#7808be] file:text-white hover:file:bg-[#9427d6] file:cursor-pointer cursor-pointer outline-none"
+            type="text"
+            name="title"
+            placeholder="Book Title"
+            value={book.title}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
           />
 
-          {coverImage && (
-            <button
-              type="button"
-              onClick={handleRemoveImage}
-              className="absolute right-4 text-gray-400 hover:text-red-400 transition text-lg"
-              title="Remove image"
-            >
-              <FaTimes />
-            </button>
-          )}
-        </div>
+          <input
+            type="text"
+            name="author"
+            placeholder="Author"
+            value={book.author}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          />
 
-        <p className="text-xs text-gray-200 italic">
-          Cover image is optional | JPG, JPEG, PNG, WEBP | Maximum file size: 10
-          MB
-        </p>
+          {/* Expanded Genres List */}
+          <select
+            name="genre"
+            value={book.genre}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          >
+            <option value="">Select Genre</option>
+            <option>Fantasy</option>
+            <option>Romance</option>
+            <option>Thriller</option>
+            <option>Mystery</option>
+            <option>Horror</option>
+            <option>Science Fiction</option>
+            <option>Historical Fiction</option>
+            <option>Adventure</option>
+            <option>Crime</option>
+            <option>Supernatural</option>
+            <option>Self Help</option>
+            <option>Biography & Memoir</option>
+            <option>Philosophy</option>
+            <option>Psychology</option>
+            <option>Business & Economics</option>
+            <option>Poetry</option>
+            <option>Classic</option>
+            <option>Young Adult</option>
+          </select>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-[#7808be] hover:bg-[#9427d6] transition rounded-lg py-3 text-white font-bold cursor-pointer"
-        >
-          {loading ? "Publishing..." : "Publish Book"}
-        </button>
-      </form>
+          {/* Expanded Moods List */}
+          <select
+            name="mood"
+            value={book.mood}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          >
+            <option value="">Select Mood</option>
+            <option>Happy & Uplifting</option>
+            <option>Sad & Tearjerker</option>
+            <option>Motivational & Inspiring</option>
+            <option>Dark & Gritty</option>
+            <option>Emotional & Heartfelt</option>
+            <option>Relaxing & Cozy</option>
+            <option>Funny & Humorous</option>
+            <option>Suspenseful & Thrilling</option>
+            <option>Mysterious & Intrigued</option>
+            <option>Adventurous & Exciting</option>
+            <option>Romantic & Dreamy</option>
+            <option>Nostalgic</option>
+          </select>
+
+          <textarea
+            name="description"
+            placeholder="Book Description"
+            rows="5"
+            value={book.description}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          />
+
+          <input
+            type="number"
+            min="1"
+            max="5"
+            name="rating"
+            placeholder="Your Rating (1-5)"
+            value={book.rating}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          />
+
+          <textarea
+            name="comment"
+            placeholder="Your Review (Optional)"
+            rows="3"
+            value={book.comment}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white outline-none focus:border-[#7808be]"
+          />
+
+          <div className="relative flex items-center justify-between w-full p-3 rounded-lg bg-[#2a172a] border border-[#7808be]/40 text-white">
+            <input
+              id="book-cover-input"
+              type="file"
+              accept="image/*"
+              onChange={handleImage}
+              className="w-full text-sm text-gray-300 file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#7808be] file:text-white hover:file:bg-[#9427d6] file:cursor-pointer cursor-pointer outline-none"
+            />
+
+            {coverImage && (
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="absolute right-4 text-gray-400 hover:text-red-400 transition text-lg"
+                title="Remove image"
+              >
+                <FaTimes />
+              </button>
+            )}
+          </div>
+
+          <p className="text-xs text-gray-200 italic">
+            Cover image is optional | JPG, JPEG, PNG, WEBP | Maximum file size: 10 MB
+          </p>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-[#7808be] hover:bg-[#9427d6] transition rounded-lg py-3 text-white font-bold cursor-pointer flex justify-center items-center gap-2 disabled:opacity-60"
+          >
+            {loading ? (
+              <>
+                <FaSpinner className="animate-spin" />
+                <span>Publishing...</span>
+              </>
+            ) : (
+              "Publish Book"
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
