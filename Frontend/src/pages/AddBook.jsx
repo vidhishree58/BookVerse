@@ -205,8 +205,9 @@ const AddBook = () => {
           )}
         </div>
 
-        <p className="text-xs text-gray-400 italic">
-          Cover image is optional • JPG, PNG, WEBP • Maximum file size: 5 MB
+        <p className="text-xs text-gray-200 italic">
+          Cover image is optional | JPG, JPEG, PNG, WEBP | Maximum file size: 10
+          MB
         </p>
 
         <button
