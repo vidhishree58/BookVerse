@@ -85,15 +85,24 @@ const BooksAdded = () => {
             {books.map((book) => (
               <div
                 key={book._id}
-                
                 className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full"
               >
-               
-                <img
-                  src={book.coverImage}
-                  alt={book.title}
-                  className="w-full h-48 sm:h-60 md:h-72 object-cover"
-                />
+                {/* Cover Image Container - Aspect 3/4 with Blurred Background */}
+                <div className="w-full aspect-3/4 bg-gray-900 flex items-center justify-center overflow-hidden relative group">
+                  {/* Backdrop blur effect */}
+                  <img
+                    src={book.coverImage}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover blur-md opacity-40 scale-110"
+                  />
+
+                  {/* Main Cover - Complete view without crop */}
+                  <img
+                    src={book.coverImage}
+                    alt={book.title}
+                    className="relative z-10 max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 shadow-lg"
+                  />
+                </div>
 
                 {/* Card Content */}
                 <div className="p-3.5 sm:p-5 flex flex-col grow justify-between">
