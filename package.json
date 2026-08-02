@@ -1,0 +1,13 @@
+{
+  "name": "bookverse",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "backend": "npm start --prefix Backend",
+    "frontend": "npm run dev --prefix Frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
