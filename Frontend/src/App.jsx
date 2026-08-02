@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import axios from "axios";
 
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Auth/Login";
@@ -18,19 +18,85 @@ import EditBook from "./pages/EditBook";
 function App() {
   return (
     <Routes>
+      {/* Public Routes (General Access) */}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/add-book" element={<AddBook />} />
-      <Route path="/genres" element={<Genres />} />
-      <Route path="/mood-hub" element={<MoodHub />} />
-      <Route path="/top-rated" element={<TopRated />} />
-      <Route path="/book/:id" element={<BookDetails />} />
-      <Route path="/my-books" element={<BooksAdded />} />
-      <Route path="/my-comments" element={<MyComments />} />
-      <Route path="/edit-book/:id" element={<EditBook />} />
+
+      {/* Protected Routes (Requires Login) */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/genres"
+        element={
+          <ProtectedRoute>
+            <Genres />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/mood-hub"
+        element={
+          <ProtectedRoute>
+            <MoodHub />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/top-rated"
+        element={
+          <ProtectedRoute>
+            <TopRated />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/book/:id"
+        element={
+          <ProtectedRoute>
+            <BookDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-book"
+        element={
+          <ProtectedRoute>
+            <AddBook />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-books"
+        element={
+          <ProtectedRoute>
+            <BooksAdded />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-comments"
+        element={
+          <ProtectedRoute>
+            <MyComments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-book/:id"
+        element={
+          <ProtectedRoute>
+            <EditBook />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

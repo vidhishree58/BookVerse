@@ -60,24 +60,17 @@ const AddBook = () => {
 
       const token = localStorage.getItem("token");
 
-      const response = await API.post(
-        "/books/add",
-        formData,
-        {
-          headers: {
-            Authorization: `${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await API.post("/books/add", formData, {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert(response.data.message);
       navigate("/dashboard");
-
     } catch (error) {
-      alert(
-        error.response?.data?.message || "Something went wrong"
-      );
+      alert(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -212,7 +205,9 @@ const AddBook = () => {
           )}
         </div>
 
-        <p className="text-xs text-gray-400 italic">Cover image is (Optional)</p>
+        <p className="text-xs text-gray-400 italic">
+          Cover image is optional • JPG, PNG, WEBP • Maximum file size: 5 MB
+        </p>
 
         <button
           type="submit"
