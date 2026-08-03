@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FaPlus, FaBookOpen, FaSmile, FaStar } from "react-icons/fa";
 import ProfileDropdown from "./ProfileDropdown";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const DashboardNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,10 +16,11 @@ const DashboardNavbar = () => {
 
   // Added handleLogout function to fix the error
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  toast.success("Logged out successfully!");
+  navigate("/");
+};
 
   return (
     <>

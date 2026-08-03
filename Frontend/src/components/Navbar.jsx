@@ -14,7 +14,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold tracking-tight">
             <span className="text-white">Book</span>
-            <span className="text-[#6C47FF]">Verse</span>
+            <span className="text-[#7808be]">Verse</span>
           </Link>
 
           {/* Nav Links (Desktop) */}
@@ -46,7 +46,7 @@ const Navbar = () => {
 
           <Link
             to="/signup"
-            className="px-5 py-1.5 rounded-md bg-[#6C47FF] text-white text-lg font-medium transition-all hover:bg-[#5835e3] shadow-sm"
+            className="px-5 py-1.5 rounded-md bg-[#7808be] text-white text-lg font-medium transition-all hover:bg-[#5835e3] shadow-sm"
           >
             Sign Up
           </Link>
@@ -94,7 +94,7 @@ const Navbar = () => {
             <Link
               to="/signup"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center w-full py-2 rounded-md bg-[#6C47FF] text-white text-sm font-medium"
+              className="flex items-center justify-center w-full py-2 rounded-md bg-[#7808be] text-white text-sm font-medium"
             >
               Sign Up
             </Link>

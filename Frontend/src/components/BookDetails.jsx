@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import DashboardNavbar from "./DashboardNavbar";
+import toast from "react-hot-toast";
 import API from "../Api";
 
 const BookDetails = () => {
@@ -37,7 +38,7 @@ const BookDetails = () => {
     e.preventDefault();
 
     if (rating === 0) {
-      alert("Please select a rating");
+      toast.success("Please select a rating");
       return;
     }
 
@@ -60,7 +61,7 @@ const BookDetails = () => {
         },
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       // Clear Form
       setRating(0);
@@ -69,7 +70,7 @@ const BookDetails = () => {
       // Get updated rating + reviews by calling getBookDetails
       await getBookDetails();
     } catch (error) {
-      alert(
+      toast.success(
         error.response?.data?.message ||
           "Something went wrong while adding review",
       );

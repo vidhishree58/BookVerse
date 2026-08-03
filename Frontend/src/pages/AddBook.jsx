@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaTimes, FaSpinner } from "react-icons/fa";
 import DashboardNavbar from "../components/DashboardNavbar";
+import toast from "react-hot-toast";
 import API from "../Api";
 
 const AddBook = () => {
@@ -68,10 +69,10 @@ const AddBook = () => {
         },
       });
 
-      alert(response.data.message || "Book added successfully!");
+      toast.success(response.data.message || "Book added successfully!");
       navigate("/dashboard");
     } catch (error) {
-      alert(error.response?.data?.message || "Something went wrong");
+      toast.success(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

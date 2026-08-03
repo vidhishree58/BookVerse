@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../Api";
+import toast from "react-hot-toast";
 
 const EditBook = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const EditBook = () => {
       });
     } catch (error) {
       console.log(error);
-      alert(error.response?.data?.message || "Failed to load book");
+      toast.success(error.response?.data?.message || "Failed to load book");
     }
   };
 
@@ -62,11 +63,11 @@ const EditBook = () => {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/my-books");
     } catch (error) {
-      alert(
+      success(
         error.response?.data?.message ||
           "Failed to update book"
       );

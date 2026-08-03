@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar";
 import API from "../../Api";
 
@@ -30,7 +31,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -41,10 +42,10 @@ const Signup = () => {
         password: formData.password,
       });
 
-      alert(response.data.message);
+      toast.success(response.data.message || "Account created successfully!");
       navigate("/login");
     } catch (error) {
-      alert(error.response?.data?.message || "Signup Failed");
+      toast.error(error.response?.data?.message || "Signup Failed");
     }
   };
 
@@ -52,21 +53,21 @@ const Signup = () => {
     <>
       <Navbar />
 
-      <section className="min-h-screen bg-[#0b0c16] flex items-center justify-center px-5 py-20">
-        <div className="w-full max-w-md bg-[#141726] border border-[#2b2f45] rounded-2xl shadow-2xl p-8">
+      <section className="min-h-screen bg-[#120812] flex items-center justify-center px-5 py-10">
+        <div className="w-full max-w-md bg-[#1b0d1b] border border-[#7808be]/30 rounded-2xl shadow-[0_10px_30px_rgba(120,8,190,0.25)] p-8">
           <h1 className="text-3xl font-bold text-center text-white">
             Create Your Account
           </h1>
 
           <p className="text-gray-400 text-center mt-3 mb-8 leading-7">
-            Join <span className="text-[#6C47FF] font-semibold">BookVerse</span>{" "}
+            Join <span className="text-[#a855f7] font-semibold">BookVerse</span>{" "}
             and start building your personal reading journey.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Username */}
             <div>
-              <label className="text-gray-300 block mb-2">Full Name</label>
+              <label className="text-gray-300 block mb-2 font-medium">Full Name</label>
 
               <input
                 type="text"
@@ -74,13 +75,14 @@ const Signup = () => {
                 value={formData.username}
                 onChange={handleChange}
                 placeholder="Enter your full name"
-                className="w-full bg-[#1b2032] border border-[#2d3248] rounded-lg px-4 py-3 text-white outline-none focus:border-[#6C47FF]"
+                required
+                className="w-full bg-[#120812] border border-[#7808be]/40 rounded-lg px-4 py-3 text-white outline-none focus:border-[#7808be] focus:ring-1 focus:ring-[#7808be] transition"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="text-gray-300 block mb-2">Email</label>
+              <label className="text-gray-300 block mb-2 font-medium">Email</label>
 
               <input
                 type="email"
@@ -88,13 +90,14 @@ const Signup = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className="w-full bg-[#1b2032] border border-[#2d3248] rounded-lg px-4 py-3 text-white outline-none focus:border-[#6C47FF]"
+                required
+                className="w-full bg-[#120812] border border-[#7808be]/40 rounded-lg px-4 py-3 text-white outline-none focus:border-[#7808be] focus:ring-1 focus:ring-[#7808be] transition"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="text-gray-300 block mb-2">Password</label>
+              <label className="text-gray-300 block mb-2 font-medium">Password</label>
 
               <div className="relative">
                 <input
@@ -103,13 +106,14 @@ const Signup = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Create a password"
-                  className="w-full bg-[#1b2032] border border-[#2d3248] rounded-lg px-4 py-3 text-white outline-none focus:border-[#6C47FF]"
+                  required
+                  className="w-full bg-[#120812] border border-[#7808be]/40 rounded-lg px-4 py-3 text-white outline-none focus:border-[#7808be] focus:ring-1 focus:ring-[#7808be] transition"
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-4 text-gray-400"
+                  className="absolute right-4 top-4 text-gray-400 hover:text-[#a855f7] transition"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -118,7 +122,7 @@ const Signup = () => {
 
             {/* Confirm Password */}
             <div>
-              <label className="text-gray-300 block mb-2">
+              <label className="text-gray-300 block mb-2 font-medium">
                 Confirm Password
               </label>
 
@@ -129,13 +133,14 @@ const Signup = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="Confirm password"
-                  className="w-full bg-[#1b2032] border border-[#2d3248] rounded-lg px-4 py-3 text-white outline-none focus:border-[#6C47FF]"
+                  required
+                  className="w-full bg-[#120812] border border-[#7808be]/40 rounded-lg px-4 py-3 text-white outline-none focus:border-[#7808be] focus:ring-1 focus:ring-[#7808be] transition"
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-4 top-4 text-gray-400"
+                  className="absolute right-4 top-4 text-gray-400 hover:text-[#a855f7] transition"
                 >
                   {showConfirm ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -144,7 +149,7 @@ const Signup = () => {
 
             <button
               type="submit"
-              className="w-full bg-[#6C47FF] hover:bg-[#5935ea] transition py-3 rounded-lg font-semibold text-white mt-2"
+              className="w-full bg-[#7808be] hover:bg-[#60069a] active:scale-[0.99] transition-all py-3 rounded-lg font-semibold text-white shadow-md mt-2"
             >
               Create Account
             </button>
@@ -154,7 +159,7 @@ const Signup = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-[#8f73ff] hover:underline font-medium"
+              className="text-[#a855f7] hover:underline font-medium"
             >
               Login
             </Link>

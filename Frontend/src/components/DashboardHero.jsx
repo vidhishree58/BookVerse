@@ -31,11 +31,11 @@ const DashboardHero = () => {
   return (
     <>
       {/*Mobile Optimized Welcome Section */}
-      <div className="mb-6 md:mb-10 text-center">
+      <div className="mb-6 md:mb-10 text-center md:px-10 ">
         {/* Mobile: text-2xl | Tablet: text-3xl | Desktop: text-4xl */}
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
           Welcome Back,{" "}
-          <span className="text-[#6C47FF]">
+          <span className="text-[#7808be]">
             {user.username || "Reader"}
           </span>{" "}
           👋
@@ -62,7 +62,7 @@ const DashboardHero = () => {
         </div>
       ) : (
        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {books.map((book) => (
             <BookCard key={book._id} book={book} />
           ))}

@@ -10,7 +10,7 @@ const Hero = () => {
         <div className="order-2 md:order-1 flex flex-col items-start gap-6">
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight">
             Welcome to <br />
-            <span className="text-[#6C47FF]">BookVerse</span>
+            <span className="text-[#7808be]">BookVerse</span>
           </h1>
 
           <div className="space-y-6 max-w-xl">
